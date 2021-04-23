@@ -20,30 +20,3 @@ def get_path_cisco():
     if path is None:
         raise Exception('The path to cisco is not specified in the settings')
     return path
-
-
-
-class Config:
-    
-    def __init__(self, name, values= {}):
-        self.name = name
-        self.values = values
-    
-    def update_config(self, **kwargs):
-        for key, value in kwargs.items():
-            self.values.update({key: value})
-
-    def create_config(self):
-        config = configparser.ConfigParser()
-        config.add_section(self.name)
-        for key, value in self.values.items():
-            config.set(self.name, key, value)
-        with open(CONFIG_PATH, 'w') as config_file:
-            config.write(config_file)
-
-# host_name, login, password
-
-if __name__ == "__main__":
-    cnf = Config('SL24', {'host_name': 'https://remote3.sl24leasing.ru/', 'login': 'makhortov.d', 'password': 'TPnxV=jh4gyN'})
-    #cnf = Config('SL24')
-    cnf.create_config()
